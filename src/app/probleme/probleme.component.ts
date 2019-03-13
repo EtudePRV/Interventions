@@ -13,7 +13,7 @@ export class ProblemeComponent implements OnInit {
 
   ngOnInit() {
      this.problemeForm = this.fb.group({
-       prenomProbleme : ['', [Validators.minLength(3)]]
+       prenomProbleme : ['', [Validators.minLength(3),Validators.required]]
      });
   }
 
