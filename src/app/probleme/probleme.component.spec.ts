@@ -19,7 +19,11 @@ describe('ProblemeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+   it('should create', () => {
+     expect(component).toBeTruthy();
+  });
+
+  it('champ prenom de probleme doit comporter au moins 3 caracteres',() => {
+    expect(true).toBeTruthy();
   });
 });

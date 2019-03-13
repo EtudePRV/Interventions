@@ -5,8 +5,8 @@ import { ProblemeComponent } from './probleme/probleme.component';
 
 const routes: Routes = [
   {path:'accueil',component:AccueilComponent},
-  {path:'',redirectTo:'accueil',pathMatch:'full'},
-  {path:'probleme',component:ProblemeComponent}
+  {path:'probleme',component:ProblemeComponent},
+  {path:'',redirectTo:'accueil',pathMatch:'full'}
 ];
 
 @NgModule({
