@@ -1,52 +1,56 @@
-  
-  <br/>     
-  <div class="container">   
-  <div class="card">       
+<br />
+<div class="container">
+  <div class="card">
     <h5 class="card-header text-white bg-secondary">
-          Déclarer un problème
-    </h5>       
-    <div class="card-body">       
+      Déclarer un problème
+    </h5>
+    <div class="card-body">
       <div class="card-text">
-        <form class="form-horizontal"
-        novalidate
-        (ngSubmit)="save()"
-        [formGroup]="problemeForm">
+        <form class="form-horizontal" novalidate (ngSubmit)="save()" [formGroup]="problemeForm">
           <div class="form-group row">
             <label for="prenomProblemeId" class="col-md-2 col-form-label text-right">Prenom : </label>
             <div class="col-md-10">
-                <input class="form-control"
-                id="prenomProblemeId"
-                type="text"
-                placeholder="Votre prénom ici (obligatoire)"
-                formControlName="prenomProbleme"
-                [ngClass]="{'is-valid': (problemeForm.get('prenomProbleme').touched || 
+              <input class="form-control" id="prenomProblemeId" type="text" placeholder="Votre prénom ici (obligatoire)"
+                formControlName="prenomProbleme" [ngClass]="{'is-valid': (problemeForm.get('prenomProbleme').touched || 
                 problemeForm.get('prenomProbleme').dirty) &&
                 (problemeForm.get('prenomProbleme').valid),
                 'is-invalid': (problemeForm.get('prenomProbleme').touched || 
                 problemeForm.get('prenomProbleme').dirty) &&
-                (!problemeForm.get('prenomProbleme').valid )}"/>
+                (!problemeForm.get('prenomProbleme').valid )}" />
 
-            <span class="form-text" *ngIf="(problemeForm.get('prenomProbleme').touched ||
+              <span class="form-text" *ngIf="(problemeForm.get('prenomProbleme').touched ||
                     problemeForm.get('prenomProbleme').dirty) &&
-                    problemeForm.get('prenomProbleme').errors"> 
-              <span *ngIf="problemeForm.get('prenomProbleme').errors.minlength">
-                <small class="text-muted">
-                  Veuillez entrer plus de caracteres
-                </small>
+                    problemeForm.get('prenomProbleme').errors">
+                <span *ngIf="problemeForm.get('prenomProbleme').errors.nbreCaracteresInsuffisants">
+                  <small class="text-muted">
+                    Veuillez entrer plus de caracteres
+                  </small>
+                </span>
+                <span *ngIf="problemeForm.get('prenomProbleme').errors.required">
+                  <small class="text-muted">
+                    Merci de saisir votre prenom
+                  </small>
+                </span>
               </span>
-              <span *ngIf="problemeForm.get('prenomProbleme').errors.required">
-                <small class="text-muted"> 
-                  Merci de saisir votre prenom 
-                </small>
-              </span>
-            </span>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="nomProblemeId" class="col-md-2 col-form-label text-right">Nom : </label>
+            <div class="col-md-10">
+              <input class="form-control" id="nomProblemeId" type="text" placeholder="Votre Nom ici (obligatoire)"
+                formControlName="nomProbleme" [ngClass]="{'is-valid': (problemeForm.get('nomProbleme').touched || 
+                problemeForm.get('nomProbleme').dirty) &&
+                (problemeForm.get('nomProbleme').valid),
+                'is-invalid': (problemeForm.get('nomProbleme').touched || 
+                problemeForm.get('nomProbleme').dirty) &&
+                (!problemeForm.get('nomProbleme').valid )}" />
             </div>
           </div>
         </form>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Sauvegarder</button>
+      </div>
     </div>
-    <div class="card-footer"> 
-        <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-save"></i>  Sauvegarder</button>      
-    </div>     
-  </div> 
-</div>
+  </div>
 </div>

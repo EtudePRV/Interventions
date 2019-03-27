@@ -14,7 +14,8 @@ export class ProblemeComponent implements OnInit {
 
   ngOnInit() {
      this.problemeForm = this.fb.group({
-       prenomProbleme : ['', [ZonesValidator.longueurMinimum(3),Validators.required]]
+       prenomProbleme : ['', [ZonesValidator.longueurMinimum(3),Validators.required]],
+       nomProbleme : ['', [ZonesValidator.longueurMinimum(3),Validators.required]]
      });
   }
 
