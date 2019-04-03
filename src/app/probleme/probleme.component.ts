@@ -51,11 +51,11 @@ export class ProblemeComponent implements OnInit {
     telephoneControl.reset();
     telephoneControl.disable();
 
-    if (Contact === 'Telephone'){
+    if (Contact === 'Telephone' || Contact ==='Texte'){
       courrielControl.disable();
       courrielConfirmControl.disable();
 
-      telephoneControl.setValidators([Validators.required]);
+      telephoneControl.setValidators([Validators.required,Validators.pattern('[0-9]+'),Validators.minLength(10), Validators.maxLength(10)]);
       telephoneControl.enable();
 
     } else  if (Contact === 'Courriels'){
