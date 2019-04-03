@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ZonesValidator } from '../shared/longueur-minimum/longueur-minimum.component';
 import { TypeProblemeService } from './typeprobleme.service';
 import { ITypeProbleme } from './typeprobleme';
+import { emailMatcherValidator } from '../shared/email-matcher/email-matcher.component';
 
 @Component({
   selector: 'Inter-probleme',
@@ -36,6 +37,7 @@ export class ProblemeComponent implements OnInit {
     const telephoneControl = this.problemeForm.get('telephone');
     const courrielControl = this.problemeForm.get('courrielGroup.courriel');
     const courrielConfirmControl = this.problemeForm.get('courrielGroup.courrielConfirmation');
+    const courrielGroup = this.problemeForm.get('courrielGroup');
 
     courrielControl.clearValidators();
     courrielControl.reset();
@@ -57,12 +59,17 @@ export class ProblemeComponent implements OnInit {
       telephoneControl.enable();
 
     } else  if (Contact === 'Courriels'){
-      telephoneControl.disable()
-      courrielControl.setValidators([Validators.required]);
+      telephoneControl.disable();
+      courrielControl.setValidators([Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
       courrielControl.enable();
       courrielConfirmControl.setValidators([Validators.required]);
       courrielConfirmControl.enable();
+      courrielGroup.setValidators([Validators.compose([emailMatcherValidator.courrielDifferents])]);
 
     } 
+
+    courrielControl.updateValueAndValidity();
+    courrielConfirmControl.updateValueAndValidity();
+    courrielGroup.updateValueAndValidity();
   }
 }
