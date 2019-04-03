@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProblemeComponent } from './probleme.component';
 import { ReactiveFormsModule} from '@angular/forms';
 import { ZonesValidator } from '../shared/longueur-minimum/longueur-minimum.component';
+import {TypeProblemeService} from './typeprobleme.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ProblemeComponent', () => {
   let component: ProblemeComponent;
@@ -10,8 +12,9 @@ describe('ProblemeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
-      declarations: [ ProblemeComponent ]
+      imports: [ReactiveFormsModule,HttpClientModule,],
+      declarations: [ ProblemeComponent ],
+      providers:[TypeProblemeService]
     })
     .compileComponents();
   }));
@@ -66,5 +69,33 @@ describe('ProblemeComponent', () => {
     zone.setValue(' '.repeat(2) + 'a'.repeat(1));
     errors = zone.errors || {};
     expect(errors['nbreCaracteresInsuffisants']).toBeTruthy();
+  });
+
+  it('Zone TELEPHONE est désactivée quand ne pas me notifier ',() => {
+    component.appliquerNotifications('Courriels');
+
+    let zone = component.problemeForm.get('telephone');
+    expect(zone.status).toEqual('DISABLED');
+  });
+
+  it('Zone TELEPHONE est vide quand ne pas me notifier ',() => {
+    component.appliquerNotifications('Courriels');
+
+    let zone = component.problemeForm.get('telephone');
+    expect(zone).toBeNull;
+  });
+
+  it('Zone ADRESSE COURRIEL est désactivée quand ne pas me notifier',() => {
+    component.appliquerNotifications('Telephone');
+
+    let zone = component.problemeForm.get('courrielGroup.courriel');
+    expect(zone.status).toEqual('DISABLED');
+  });
+
+  it('Zone CONFIRMER COURRIEL est désactivée quand ne pas me notifier ',() => {
+    component.appliquerNotifications('Telephone');
+
+    let zone = component.problemeForm.get('courrielGroup.courrielConfirmation');
+    expect(zone.status).toEqual('DISABLED');
   });
 });
