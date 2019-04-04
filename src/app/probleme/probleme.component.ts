@@ -25,33 +25,39 @@ export class ProblemeComponent implements OnInit {
        courrielGroup:this.fb.group({ 
           courriel: [{value:'', disabled:true}],
           courrielConfirmation: [{value:'', disabled:true}],
-          }),
+          },{validator: emailMatcherValidator.courrielDifferents()}),
       telephone: [{value:'', disabled:true}],
      });
      
      this.types.obtenirTypes()
     .subscribe(cat => this.typeProbleme = cat,
              error => this.errorMessage = <any>error);
+
+      this.problemeForm.get('Contact').valueChanges
+      .subscribe(value => this.appliquerNotifications(value));
   }
+
   appliquerNotifications(Contact:string):void{
     const telephoneControl = this.problemeForm.get('telephone');
     const courrielControl = this.problemeForm.get('courrielGroup.courriel');
     const courrielConfirmControl = this.problemeForm.get('courrielGroup.courrielConfirmation');
-    const courrielGroup = this.problemeForm.get('courrielGroup');
+    const courrielGroups = this.problemeForm.get('courrielGroup');
 
     courrielControl.clearValidators();
     courrielControl.reset();
     courrielControl.disable();
-
     courrielConfirmControl.clearValidators();
     courrielConfirmControl.reset();
     courrielConfirmControl.disable();
+    courrielGroups.clearValidators();
+    courrielGroups.reset();
+    courrielGroups.disable();
 
     telephoneControl.clearValidators();
     telephoneControl.reset();
     telephoneControl.disable();
 
-    if (Contact === 'Telephone' || Contact ==='Texte'){
+    if (Contact === 'Telephone'){
       courrielControl.disable();
       courrielConfirmControl.disable();
 
@@ -64,12 +70,15 @@ export class ProblemeComponent implements OnInit {
       courrielControl.enable();
       courrielConfirmControl.setValidators([Validators.required]);
       courrielConfirmControl.enable();
-      courrielGroup.setValidators([Validators.compose([emailMatcherValidator.courrielDifferents])]);
-
-    } 
+      courrielGroups.setValidators([Validators.compose([emailMatcherValidator.courrielDifferents()])]);
+    }  else if (Contact === 'Inconnu'){
+      courrielControl.disable();
+      courrielConfirmControl.disable();
+      telephoneControl.disable();
+    }
 
     courrielControl.updateValueAndValidity();
     courrielConfirmControl.updateValueAndValidity();
-    courrielGroup.updateValueAndValidity();
+    courrielGroups.updateValueAndValidity();
   }
 }
